@@ -1,7 +1,25 @@
-<script>
-  // Берет всё, что после ? и перенаправляет в Obsidian
-  const params = window.location.search;
-  if (params) {
-    window.location.href = "obsidian://open" + params;
-  }
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Obsidian Bridge</title>
+</head>
+<body>
+    <script>
+        // Получаем все параметры из адресной строки (начиная с ?)
+        const searchParams = window.location.search;
+        
+        if (searchParams) {
+            // Формируем финальную ссылку для Obsidian
+            const obsidianUrl = "obsidian://open" + searchParams;
+            
+            // Перенаправляем пользователя
+            window.location.href = obsidianUrl;
+
+            // Закрываем вкладку через пару секунд (необязательно)
+            setTimeout(() => { window.close(); }, 2000);
+        } else {
+            document.body.innerHTML = "No parameters found. Use: ?vault=...&file=...";
+        }
+    </script>
+</body>
+</html>
