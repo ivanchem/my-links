@@ -1,0 +1,7 @@
+<script>
+  // Берет всё, что после ? и перенаправляет в Obsidian
+  const params = window.location.search;
+  if (params) {
+    window.location.href = "obsidian://open" + params;
+  }
+</script>
