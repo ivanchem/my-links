@@ -5,20 +5,23 @@
 </head>
 <body>
     <script>
-        // Получаем все параметры из адресной строки (начиная с ?)
-        const searchParams = window.location.search;
+        // Берем всю адресную строку после вашего домена
+        const fullPath = window.location.href;
         
-        if (searchParams) {
-            // Формируем финальную ссылку для Obsidian
-            const obsidianUrl = "obsidian://open" + searchParams;
-            
-            // Перенаправляем пользователя
-            window.location.href = obsidianUrl;
+        // Ищем, где начинается настоящая команда Obsidian
+        const obsidianIndex = fullPath.indexOf("obsidian://");
 
-            // Закрываем вкладку через пару секунд (необязательно)
+        if (obsidianIndex !== -1) {
+            // Вырезаем всё, что идет начиная с obsidian:// и до конца
+            const finalUrl = fullPath.substring(obsidianIndex);
+            
+            // Выполняем переход
+            window.location.href = finalUrl;
+
+            // Закрываем вкладку через 2 секунды
             setTimeout(() => { window.close(); }, 2000);
         } else {
-            document.body.innerHTML = "No parameters found. Use: ?vault=...&file=...";
+            document.body.innerHTML = "Ошибка: Ссылка Obsidian не найдена в адресе.";
         }
     </script>
 </body>
